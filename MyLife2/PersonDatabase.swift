@@ -26,6 +26,9 @@ class PersonDatabase {
                dogPreference: 6.0),
         Person(name: "Hopper",
                image: UIImage(named: "Sample3"),
+               dogPreference: 2.0),
+        Person(name: "Druzhko",
+               image: UIImage(named: "DruzhkoPic"),
                dogPreference: 2.0)
     ]
     
@@ -44,5 +47,9 @@ class PersonDatabase {
     
     func add(person: Person) {
         persons.append(person)
+    }
+    
+    func delete(index: Int) {
+        persons.remove(at: index)
     }
 }

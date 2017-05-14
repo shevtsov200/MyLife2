@@ -11,6 +11,7 @@ import UIKit
 // MARK: Boundary protocols
 protocol ListPeopleInteractorInput {
     func showPeopleList(_ request: ListPeople.Request)
+    func deletePerson(_ request: ListPeople.Request)
 }
 
 protocol ListPeopleInteractorOutput {
@@ -35,5 +36,10 @@ class ListPeopleInteractor: ListPeopleInteractorInput {
         
         let response = ListPeople.Response(items: responseItems)
         output.presentList(response)
+    }
+    
+    func deletePerson( _ request: ListPeople.Request) {
+        persons.delete(index: request.index)
+        showPeopleList(request)
     }
 }
