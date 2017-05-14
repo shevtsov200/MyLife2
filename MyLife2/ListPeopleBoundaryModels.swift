@@ -13,6 +13,7 @@ import UIKit
  */
 struct ListPeople {
     struct Request {
+        let index: Int
     }
     struct Response {
         struct Item {

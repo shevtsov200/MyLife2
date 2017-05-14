@@ -11,10 +11,12 @@ import UIKit
 // MARK: Boundary protocols
 protocol ListPeopleInteractorInput {
     func showPeopleList(_ request: ListPeople.Request)
+    func deletePerson(_ request: ListPeople.Request)
 }
 
 protocol ListPeopleInteractorOutput {
     func presentList(_ response: ListPeople.Response)
+    func presentDeletion(_ response: ListPeople.Response)
 }
 
 // MARK: Class
@@ -35,5 +37,18 @@ class ListPeopleInteractor: ListPeopleInteractorInput {
         
         let response = ListPeople.Response(items: responseItems)
         output.presentList(response)
+    }
+    
+    func deletePerson( _ request: ListPeople.Request) {
+        persons.delete(index: request.index)
+        
+        let responseItems =
+            persons.all().enumerated()
+                .map { ListPeople.Response.Item(identifier: $0,
+                                                name: $1.name,
+                                                image: $1.image) }
+        
+        let response = ListPeople.Response(items: responseItems)
+        output.presentDeletion(response)
     }
 }

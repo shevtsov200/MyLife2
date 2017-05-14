@@ -48,4 +48,8 @@ class PersonDatabase {
     func add(person: Person) {
         persons.append(person)
     }
+    
+    func delete(index: Int) {
+        persons.remove(at: index)
+    }
 }

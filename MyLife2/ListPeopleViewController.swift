@@ -29,11 +29,16 @@ class ListPeopleViewController: UITableViewController, ListPeoplePresenterOutput
     
     // MARK: Event handling
     func showListOnLoad() {
-        output.showPeopleList(ListPeople.Request())
+        output.showPeopleList(ListPeople.Request(index: 0))
     }
     
     // MARK: Display logic
     func displayList(_ viewModel: ListPeople.Response.ViewModel) {
+        itemsViewModel = viewModel.itemsViewModel
+        tableView.reloadData()
+    }
+    
+    func displayDeletion(_ viewModel: ListPeople.Response.ViewModel) {
         itemsViewModel = viewModel.itemsViewModel
         tableView.reloadData()
     }
@@ -70,6 +75,17 @@ class ListPeopleViewController: UITableViewController, ListPeoplePresenterOutput
         
         // Now the cell has been setup, return it to the table view.
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.delete
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if(editingStyle == .delete) {
+            let request = ListPeople.Request(index: indexPath.row)
+            output.deletePerson(request)
+        }
     }
     
     @IBAction func unwindToPersonList(_ sender: UIStoryboardSegue) { }
