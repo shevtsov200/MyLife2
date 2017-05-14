@@ -11,7 +11,6 @@ import UIKit
 // MARK: Boundary protocol
 protocol ListPeoplePresenterOutput: class {
     func displayList(_ response: ListPeople.Response.ViewModel)
-    func displayDeletion(_ response: ListPeople.Response.ViewModel)
 }
 
 // MARK: Class
@@ -38,23 +37,5 @@ class ListPeoplePresenter: ListPeopleInteractorOutput {
 
         let viewModel = ListPeople.Response.ViewModel(itemsViewModel: itemsViewModel)
         output?.displayList(viewModel)
-    }
-    
-    func presentDeletion(_ response: ListPeople.Response) {
-        var itemsViewModel: [ListPeople.Response.ViewModel.ItemViewModel] = []
-        
-        response.items.forEach { (item) in
-            let name = item.name?.uppercased()
-            
-            let itemViewModel = ListPeople.Response.ViewModel
-                .ItemViewModel(identifier: item.identifier,
-                               preparedName: name,
-                               preparedImage: item.image)
-            
-            itemsViewModel.append(itemViewModel)
-        }
-        
-        let viewModel = ListPeople.Response.ViewModel(itemsViewModel: itemsViewModel)
-        output?.displayDeletion(viewModel)
     }
 }

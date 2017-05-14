@@ -16,7 +16,6 @@ protocol ListPeopleInteractorInput {
 
 protocol ListPeopleInteractorOutput {
     func presentList(_ response: ListPeople.Response)
-    func presentDeletion(_ response: ListPeople.Response)
 }
 
 // MARK: Class
@@ -41,14 +40,6 @@ class ListPeopleInteractor: ListPeopleInteractorInput {
     
     func deletePerson( _ request: ListPeople.Request) {
         persons.delete(index: request.index)
-        
-        let responseItems =
-            persons.all().enumerated()
-                .map { ListPeople.Response.Item(identifier: $0,
-                                                name: $1.name,
-                                                image: $1.image) }
-        
-        let response = ListPeople.Response(items: responseItems)
-        output.presentDeletion(response)
+        showPeopleList(request)
     }
 }

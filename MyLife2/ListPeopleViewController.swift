@@ -38,11 +38,6 @@ class ListPeopleViewController: UITableViewController, ListPeoplePresenterOutput
         tableView.reloadData()
     }
     
-    func displayDeletion(_ viewModel: ListPeople.Response.ViewModel) {
-        itemsViewModel = viewModel.itemsViewModel
-        tableView.reloadData()
-    }
-    
     // MARK: Table View
     var itemsViewModel: [ListPeople.Response.ViewModel.ItemViewModel]?
     
